@@ -4,6 +4,6 @@ Flask Kusaba is a 4chan (Kusaba) like message board.  It is designed using the F
 
 Before launching, you must run the following on the Python command line.
 
->>> from model import *
->>> setup_all()
->>> create_all()
+  from model import *
+  setup_all()
+  create_all()
