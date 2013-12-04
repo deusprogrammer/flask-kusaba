@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}{{thread.board.forum.name}}- {{thread.board.abbrev}}{% endblock %}
+{% block content %}
+	<h1>{{thread.board.forum.name}}- {{thread.board.abbrev}}</h1>
+	{% set preview = False %}
+	{% include 'thread_template.html' %}
+{% endblock %}

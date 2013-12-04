@@ -1,0 +1,17 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<style>
+		{% include 'style.css' %}
+	</style>
+    <title>{% block title %}{% endblock %} - My Webpage</title>
+</head>
+<body>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+        {% block footer %}
+			&copy; Copyright 2013 by <a href="http://www.ponychan.org/">deusprogrammer</a>.
+        {% endblock %}
+    </div>
+</body>

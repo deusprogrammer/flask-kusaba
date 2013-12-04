@@ -1,0 +1,11 @@
+<div class="thread">
+	<h4>{{thread.subject}}</h4>
+	{% set i = 0 %}
+	{% if preview %}
+		<a href="{{thread.board.abbrev}}/thread/{{thread.id}}">View Thread</a>
+	{% endif %}
+	{% for post in thread.posts %}
+		{% include "post_template.html" %}
+		{% set i = i + 1 %}
+	{% endfor %}
+</div>

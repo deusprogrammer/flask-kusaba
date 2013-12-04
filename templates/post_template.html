@@ -1,0 +1,12 @@
+{% if i == 0 %}
+<div class="post-first">
+{% else %}
+<div class="post">
+{% endif %}
+	<div class="post-subject">
+		{{ post.subject }}
+	</div>
+	<div class="post-text">
+		{{ post.text }}<br />
+	</div>
+</div>
