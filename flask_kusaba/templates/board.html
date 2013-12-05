@@ -14,10 +14,10 @@
 	{% set thread = None %}
 	{% set preview = True %}
 	<hr />
-	{% include 'layouts/new_post.html' %}
+	{% include '_post_form.html' %}
 	<hr />
 	{% for thread in board.threads %}
-		{% include 'layouts/thread_template.html' %}
+		{% include '_thread.html' %}
 		<hr />
 	{% endfor %}
 {% endblock %}

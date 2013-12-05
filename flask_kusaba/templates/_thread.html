@@ -5,7 +5,7 @@
 		<a href="{{url_for('show_thread', forum_id=thread.board.forum.name, board_id=thread.board.abbrev, thread_id=thread.id)}}">View Thread</a>
 	{% endif %}
 	{% for post in thread.posts %}
-		{% include "layouts/post_template.html" %}
+		{% include "_post.html" %}
 		{% set i = i + 1 %}
 	{% endfor %}
 </div>
