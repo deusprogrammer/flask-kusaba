@@ -32,7 +32,19 @@ class Thread(Entity):
 class Post(Entity):
 	subject = Field(String(16))
 	text    = Field(String(1024))
+	has_one('image', of_kind='Image', inverse='post')
 	thread  = ManyToOne('Thread')
 	
 	def __repr__(self):
 		return "post-%r" % self.id
+		
+class Image(Entity):
+	filename = Field(String(32))
+	belongs_to('post', of_kind='Post')
+	
+	def __repr__(self):
+		return "image-%r" % self.id
+	
+	def getBytes(self):
+		file = open(self.filename, "rb")
+		return file.read()
