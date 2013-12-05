@@ -1,7 +1,7 @@
 from flask import *
 from model import *
+from flask_kusaba import app
 
-app = Flask(__name__)
 setup_all()
 
 @app.route('/forum/<forum_id>/')
