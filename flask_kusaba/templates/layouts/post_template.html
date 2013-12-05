@@ -3,6 +3,11 @@
 {% else %}
 <div class="post">
 {% endif %}
+	<div class="post-image">
+		{% if post.image %}
+			<img width="100px" src="{{url_for('get_image', image_id=post.image.id)}}" />
+		{% endif %}
+	</div>
 	<div class="post-subject">
 		{{ post.subject }}
 	</div>

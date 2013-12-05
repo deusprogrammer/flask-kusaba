@@ -3,5 +3,7 @@
 {% block content %}
 	<h1>{{thread.board.forum.name}}- {{thread.board.abbrev}}</h1>
 	{% set preview = False %}
+	{% set board = thread.board %}
+	{% include 'layouts/new_post.html' %}
 	{% include 'layouts/thread_template.html' %}
 {% endblock %}

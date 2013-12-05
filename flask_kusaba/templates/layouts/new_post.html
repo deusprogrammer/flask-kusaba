@@ -1,0 +1,16 @@
+{% if thread %}
+	{% set action = url_for('create_post', forum_id=board.forum.name, board_id=board.abbrev, thread_id=thread.id) %}
+{% else %}
+	{% set action = url_for('create_post', forum_id=board.forum.name, board_id=board.abbrev, thread_id=thread.id) %}
+{% endif %}
+<form action="{{action}}" enctype="multipart/form-data" method="post">
+	<table class="new-post">
+		<tbody>
+			<tr><td class="label">Name</td><td><input type="text" class="new-post" name="name" /></td></tr>
+			<tr><td class="label">Email</td><td><input type="text" class="new-post" name="email" /></td></tr>
+			<tr><td class="label">Subject</td><td><input type="text" class="new-post" name="subject" /><input type="submit" class="new-post" name="submit" value="Submit" /><br/></td></tr>
+			<tr><td class="label">Post</td><td><input type="text" class="new-post" cols="50" rows="4" name="text" /></td></tr>
+			<tr><td class="label">File</td><td><input type="file" class="new-post" name="file" /></td></tr>
+		</tbody>
+	</table>
+</form>

@@ -2,6 +2,8 @@
 {% block title %}{{board.forum.name}}- {{board.abbrev}}{% endblock %}
 {% block content %}
 	<h1>{{board.forum.name}}- {{board.abbrev}}</h1>
+	{% set thread = None %}
+	{% include 'layouts/new_post.html' %}
 	{% set preview = True %}
 	{% for thread in board.threads %}
 		{% include 'layouts/thread_template.html' %}
