@@ -1,6 +1,9 @@
 from flask import *
-from model import *
+from models import *
 from flask_kusaba import app
+import os
+
+setup_all()
 
 @app.route('/forum/<forum_id>/')
 def show_boards(forum_id):

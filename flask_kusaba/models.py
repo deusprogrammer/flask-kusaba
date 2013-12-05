@@ -1,4 +1,5 @@
 from elixir import *
+import os
 
 metadata.bind = "sqlite:///bb.db"
 metadata.bind.echo = True

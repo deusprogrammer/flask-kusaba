@@ -3,6 +3,6 @@
 {% block content %}
 	<h1>{{forum.name}}</h1>
 	{% for board in forum.boards %}
-		<div><a href="board/{{board.abbrev}}">{{ board }}</a></div>
+		<div><a href="{{url_for('show_board', forum_id=forum.name, board_id=board.abbrev, page=1)}}">{{ board }}</a></div>
 	{% endfor %}
 {% endblock %}

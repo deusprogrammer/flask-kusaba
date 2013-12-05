@@ -2,10 +2,10 @@
 	<h4>{{thread.subject}}</h4>
 	{% set i = 0 %}
 	{% if preview %}
-		<a href="{{thread.board.abbrev}}/thread/{{thread.id}}">View Thread</a>
+		<a href="{{url_for('show_thread', forum_id=thread.board.forum.name, board_id=thread.board.abbrev, thread_id=thread.id)}}">View Thread</a>
 	{% endif %}
 	{% for post in thread.posts %}
-		{% include "post_template.html" %}
+		{% include "layouts/post_template.html" %}
 		{% set i = i + 1 %}
 	{% endfor %}
 </div>

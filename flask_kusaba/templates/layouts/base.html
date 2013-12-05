@@ -2,9 +2,7 @@
 <html lang="en">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<style>
-		{% include 'style.css' %}
-	</style>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
     <title>{% block title %}{% endblock %} - My Webpage</title>
 </head>
 <body>
