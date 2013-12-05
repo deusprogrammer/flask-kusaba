@@ -1,10 +1,14 @@
 <div class="thread">
-	<h4>{{thread.subject}}</h4>
 	{% set i = 0 %}
+	{% set posts = thread.posts %}
 	{% if preview %}
 		<a href="{{url_for('show_thread', forum_id=thread.board.forum.name, board_id=thread.board.abbrev, thread_id=thread.id)}}">View Thread</a>
+		{% if thread.posts|length >= 4 %}
+			{% set posts = [thread.posts[0]] + thread.posts[-4:] %}
+			There are {{thread.posts|length - 5}} omitted posts.
+		{% endif %}
 	{% endif %}
-	{% for post in thread.posts %}
+	{% for post in posts %}
 		{% include "_post.html" %}
 		{% set i = i + 1 %}
 	{% endfor %}
