@@ -1,5 +1,14 @@
 {% extends "layouts/base.html" %}
 {% block title %}{{thread.board.forum.name}}- {{thread.board.abbrev}}{% endblock %}
+{% block header %}
+	<div class="board-menu">
+		[
+		{% for board in thread.board.forum.boards %}
+			<a class="board-menu" href="{{url_for('show_board', forum_id=board.forum.name, board_id=board.abbrev)}}">{{board.abbrev}}</a> /
+		{% endfor %}
+		]
+	</div>
+{% endblock %}
 {% block content %}
 	<h1>{{thread.board.forum.name}}- {{thread.board.abbrev}}</h1>
 	{% set preview = False %}

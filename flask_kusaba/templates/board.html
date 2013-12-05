@@ -1,11 +1,23 @@
 {% extends "layouts/base.html" %}
 {% block title %}{{board.forum.name}}- {{board.abbrev}}{% endblock %}
+{% block header %}
+	<div class="board-menu">
+		[
+		{% for board in board.forum.boards %}
+			<a class="board-menu" href="{{url_for('show_board', forum_id=board.forum.name, board_id=board.abbrev)}}">{{board.abbrev}}</a> /
+		{% endfor %}
+		]
+	</div>
+{% endblock %}
 {% block content %}
-	<h1>{{board.forum.name}}- {{board.abbrev}}</h1>
+	<div class="title"><h1 class="board">{{board.forum.name}}- {{board.abbrev}}</h1></div>
 	{% set thread = None %}
-	{% include 'layouts/new_post.html' %}
 	{% set preview = True %}
+	<hr />
+	{% include 'layouts/new_post.html' %}
+	<hr />
 	{% for thread in board.threads %}
 		{% include 'layouts/thread_template.html' %}
+		<hr />
 	{% endfor %}
 {% endblock %}

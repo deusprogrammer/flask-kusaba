@@ -7,6 +7,7 @@ import os
 import imghdr
 import time
 import math
+import Image as _Image
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
@@ -49,9 +50,18 @@ def create_post(forum_id, board_id, thread_id=-1):
 	
 		file = request.files['file']
 		if file:
+			size = 200, 200
 			filename = "%d" % math.floor(time.time())
-			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-			Image(filename=os.path.join(app.config['UPLOAD_FOLDER'], filename), post=post)
+			fullsize_file = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+			thumbnail_file = os.path.join(app.config['UPLOAD_FOLDER'], "%s_thumbnail.png" % filename)
+			
+			file.save(fullsize_file)
+			
+			image = _Image.open(fullsize_file)
+			image.thumbnail(size)
+			image.save(thumbnail_file)
+			Image(filename=fullsize_file, thumbnail=thumbnail_file, post=post)
+			
 		session.commit()
 	
 	return redirect(url_for('show_thread', forum_id=forum_id, board_id=board_id, thread_id=thread.id))
@@ -62,5 +72,11 @@ def get_image(image_id):
 	image = Image.query.filter_by(id=image_id).one()
 	bytes = image.getBytes()
 	mimetype = 'image/%s' % imghdr.what(image.filename)
-	print mimetype
+	return Response(bytes, mimetype=mimetype)
+
+@app.route('/image/<image_id>/thumbnail')
+def get_thumbnail(image_id):
+	image = Image.query.filter_by(id=image_id).one()
+	bytes = image.getThumbBytes()
+	mimetype = 'image/%s' % imghdr.what(image.filename)
 	return Response(bytes, mimetype=mimetype)

@@ -40,6 +40,7 @@ class Post(Entity):
 		
 class Image(Entity):
 	filename = Field(String(32))
+	thumbnail = Field(String(32))
 	belongs_to('post', of_kind='Post')
 	
 	def __repr__(self):
@@ -47,4 +48,8 @@ class Image(Entity):
 	
 	def getBytes(self):
 		file = open(self.filename, "rb")
+		return file.read()
+		
+	def getThumbBytes(self):
+		file = open(self.thumbnail, "rb")
 		return file.read()

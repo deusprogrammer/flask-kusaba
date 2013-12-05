@@ -3,15 +3,17 @@
 {% else %}
 <div class="post">
 {% endif %}
-	<div class="post-image">
-		{% if post.image %}
-			<img width="100px" src="{{url_for('get_image', image_id=post.image.id)}}" />
-		{% endif %}
-	</div>
-	<div class="post-subject">
+	<div class="post-header">
 		{{ post.subject }}
 	</div>
-	<div class="post-text">
-		{{ post.text }}<br />
+	<div class="post-content">
+		{% if post.image %}
+			<div class="post-image">
+				<a href="{{url_for('get_image', image_id=post.image.id)}}"><img src="{{url_for('get_thumbnail', image_id=post.image.id)}}" /></a>
+			</div>
+		{% endif %}
+		<div class="post-text">
+			{{ post.text }}
+		</div>
 	</div>
 </div>
