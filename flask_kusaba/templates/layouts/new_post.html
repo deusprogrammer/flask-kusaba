@@ -1,7 +1,7 @@
 {% if thread %}
 	{% set action = url_for('create_post', forum_id=board.forum.name, board_id=board.abbrev, thread_id=thread.id) %}
 {% else %}
-	{% set action = url_for('create_post', forum_id=board.forum.name, board_id=board.abbrev, thread_id=thread.id) %}
+	{% set action = url_for('create_post', forum_id=board.forum.name, board_id=board.abbrev) %}
 {% endif %}
 <form action="{{action}}" enctype="multipart/form-data" method="post">
 	<table class="new-post">

@@ -53,8 +53,8 @@ def create_post(forum_id, board_id, thread_id=-1):
 			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 			Image(filename=os.path.join(app.config['UPLOAD_FOLDER'], filename), post=post)
 		session.commit()
-		
-	return redirect(url_for('show_thread', forum_id=forum_id, board_id=board_id, thread_id=thread_id))
+	
+	return redirect(url_for('show_thread', forum_id=forum_id, board_id=board_id, thread_id=thread.id))
 		
 	
 @app.route('/image/<image_id>')
