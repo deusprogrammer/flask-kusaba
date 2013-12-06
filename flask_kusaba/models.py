@@ -15,7 +15,7 @@ class Forum(Entity):
 class Board(Entity):
 	name    = Field(String(16))
 	abbrev  = Field(String(4))
-	threads = OneToMany('Thread')
+	threads = OneToMany('Thread', order_by='-updated')
 	forum   = ManyToOne('Forum')
 	
 	def __repr__(self):
@@ -23,6 +23,8 @@ class Board(Entity):
 	
 class Thread(Entity):
 	subject = Field(String(16))
+	created = Field(Integer)
+	updated = Field(Integer)
 	board   = ManyToOne('Board')
 	posts   = OneToMany('Post')
 	
@@ -32,6 +34,7 @@ class Thread(Entity):
 class Post(Entity):
 	subject = Field(String(16))
 	text    = Field(String(1024))
+	created = Field(Integer)
 	has_one('image', of_kind='Image', inverse='post')
 	thread  = ManyToOne('Thread')
 	

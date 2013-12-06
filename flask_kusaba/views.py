@@ -43,10 +43,11 @@ def create_post(forum_id, board_id, thread_id=-1):
 		board  = Board.query.filter_by(abbrev=board_id, forum=forum).one()
 		if (thread_id != -1):
 			thread = Thread.query.filter_by(id=thread_id, board=board).one()
+			thread.updated = math.floor(time.time())
 		else:
-			thread = Thread(subject=request.form['subject'], board=board)
+			thread = Thread(subject=request.form['subject'], created=math.floor(time.time()), updated=math.floor(time.time()), board=board)
 
-		post = Post(subject=request.form['subject'], text=request.form['text'], thread=thread)
+		post = Post(subject=request.form['subject'], text=request.form['text'], created=math.floor(time.time()), thread=thread)
 	
 		file = request.files['file']
 		if file:
