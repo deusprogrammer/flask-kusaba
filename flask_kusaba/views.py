@@ -10,7 +10,8 @@ import math
 import Image as _Image
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
-THREADS_PER_PAGE = 5.0
+THREADS_PER_PAGE = 2
+POSTS_PER_PREVIEW = 4
 
 setup_all()
 
@@ -33,14 +34,14 @@ def show_board(forum_id, board_id, page=1):
 	start_thread = int(math.floor((page - 1) * THREADS_PER_PAGE))
 	end_thread = int(math.floor(((page - 1) * THREADS_PER_PAGE) + THREADS_PER_PAGE))
 	
-	return render_template('board.html', board=board, page=page, n_pages=n_pages, start_thread=start_thread, end_thread=end_thread)
+	return render_template('board.html', board=board, page=page, n_pages=n_pages, start_thread=start_thread, end_thread=end_thread, posts_per_preview=POSTS_PER_PREVIEW)
 	
 @app.route('/forum/<forum_id>/board/<board_id>/thread/<thread_id>')
 def show_thread(forum_id, board_id, thread_id):
 	forum  = Forum.query.filter_by(name=forum_id).one()
 	board  = Board.query.filter_by(abbrev=board_id, forum=forum).one()
 	thread = Thread.query.filter_by(id=thread_id, board=board).one()
-	return render_template('thread.html', thread=thread)
+	return render_template('thread.html', thread=thread, posts_per_preview=POSTS_PER_PREVIEW)
 	
 @app.route('/forum/<forum_id>/board/<board_id>/post', methods=['POST'])
 @app.route('/forum/<forum_id>/board/<board_id>/thread/<thread_id>/post', methods=['POST'])
