@@ -16,8 +16,28 @@
 	<hr />
 	{% include '_post_form.html' %}
 	<hr />
-	{% for thread in board.threads %}
+	{% for thread in board.threads[start_thread:end_thread] %}
 		{% include '_thread.html' %}
 		<hr />
 	{% endfor %}
+{% endblock %}
+{% block footer %}
+<div>
+	{% if page > 1 %}
+		<a href="{{url_for('show_board', forum_id=board.forum.name, board_id=board.abbrev, page=page-1)}}">previous</a>
+	{% else %}
+		previous
+	{% endif %}
+	/
+	{% if page < n_pages %}
+		<a href="{{url_for('show_board', forum_id=board.forum.name, board_id=board.abbrev, page=page+1)}}">next</a>
+	{% else %}
+		next
+	{% endif %}
+	<br />
+	pages: {{n_pages}}<br />
+	start_thread: {{start_thread}}<br />
+	end_thread: {{end_thread}}
+</div>
+{{super()}}
 {% endblock %}

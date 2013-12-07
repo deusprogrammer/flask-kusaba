@@ -10,6 +10,7 @@ import math
 import Image as _Image
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+THREADS_PER_PAGE = 5.0
 
 setup_all()
 
@@ -26,7 +27,13 @@ def show_boards(forum_id):
 def show_board(forum_id, board_id, page=1):
 	forum = Forum.query.filter_by(name=forum_id).one()
 	board = Board.query.filter_by(abbrev=board_id, forum=forum).one()
-	return render_template('board.html', board=board)
+	
+	page = int(page)
+	n_pages = int(math.ceil(len(board.threads)/THREADS_PER_PAGE))
+	start_thread = int(math.floor((page - 1) * THREADS_PER_PAGE))
+	end_thread = int(math.floor(((page - 1) * THREADS_PER_PAGE) + THREADS_PER_PAGE))
+	
+	return render_template('board.html', board=board, page=page, n_pages=n_pages, start_thread=start_thread, end_thread=end_thread)
 	
 @app.route('/forum/<forum_id>/board/<board_id>/thread/<thread_id>')
 def show_thread(forum_id, board_id, thread_id):
