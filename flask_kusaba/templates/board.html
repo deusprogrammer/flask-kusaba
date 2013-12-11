@@ -22,32 +22,34 @@
 	{% endfor %}
 {% endblock %}
 {% block footer %}
-<div>
-	{% if board.posts %}
-		{% if page > 1 %}
-			<a href="{{url_for('show_board', forum_id=board.forum.name, board_id=board.abbrev, page=page-1)}}">&lt;</a>
-		{% else %}
-			&lt;
-		{% endif %}
-		[
+	{% if n_pages > 1 %}
+	<div class="pagelist">
+		<div class="prev">
+			{% if page > 1 %}
+				<a href="{{url_for('show_board', forum_id=board.forum.name, board_id=board.abbrev, page=page-1)}}"><button>Previous</button></a>
+			{% else %}
+				<button disabled="true">Previous</button>
+			{% endif %}
+		</div>
+		<div class="pages">
 			{% for i in range(1, n_pages + 1) %}
 				{% if i == page %}
-					{{i}}
+					[<strong>{{i}}</strong>]
 				{% else %}
-					<a href="{{url_for('show_board', forum_id=board.forum.name, board_id=board.abbrev, page=i)}}">{{i}}</a>
+					[<a href="{{url_for('show_board', forum_id=board.forum.name, board_id=board.abbrev, page=i)}}">{{i}}</a>]
 				{% endif %}
 			{% endfor %}
-		]
-		{% if page < n_pages %}
-			<a href="{{url_for('show_board', forum_id=board.forum.name, board_id=board.abbrev, page=page+1)}}">&gt;</a>
-		{% else %}
-			&gt;
-		{% endif %}
+		</div>
+		<div class="next">
+			{% if page < n_pages %}
+				<a href="{{url_for('show_board', forum_id=board.forum.name, board_id=board.abbrev, page=page+1)}}"><button>Next</button></a>
+			{% else %}
+				<button disabled="true">Next</button>
+			{% endif %}
+		</div>
+	</div>
 	{% endif %}
-	<br />
-	pages: {{n_pages}}<br />
-	start_thread: {{start_thread}}<br />
-	end_thread: {{end_thread}}
-</div>
-{{super()}}
+	<div>
+	{{super()}}
+	</div>
 {% endblock %}

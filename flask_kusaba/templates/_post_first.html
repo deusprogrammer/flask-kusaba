@@ -1,4 +1,4 @@
-<div class="post">
+<div class="post-first">
 	<div class="post-header">
 		<span class="subject">{{post.subject}}</span><span class="poster" title="IP: {{post.poster_ip}}">
 		{% if post.poster_email %}
@@ -7,11 +7,12 @@
 			{{post.poster_name}}
 		{% endif %}
 		</span>
-		{{post.created}} No.
+		{{post.created}}
 		{% if not preview %}
 			<a class="post-number" href="#">{{post.id}}</a>
 		{% else %}
 			{{post.id}}
+			<span>[<a href="{{url_for('show_thread', forum_id=thread.board.forum.name, board_id=thread.board.abbrev, thread_id=thread.id)}}">Reply</a>]</span>
 		{% endif %}
 	</div>
 	<div class="post-content">

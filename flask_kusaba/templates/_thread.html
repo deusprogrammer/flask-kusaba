@@ -3,14 +3,26 @@
 	{% set posts = thread.posts %}
 	{% set d = posts_per_preview - 1 %}
 	{% if preview %}
-		<a href="{{url_for('show_thread', forum_id=thread.board.forum.name, board_id=thread.board.abbrev, thread_id=thread.id)}}">View Thread</a>
 		{% if thread.posts|length > posts_per_preview %}
 			{% set posts = [thread.posts[0]] + thread.posts[-d:] %}
-			There are {{thread.posts|length - posts_per_preview}} omitted posts.
 		{% endif %}
 	{% endif %}
 	{% for post in posts %}
-		{% include "_post.html" %}
+		{% if i == 0 %}
+			{% include "_post_first.html" %}
+			{% if thread.posts|length > posts_per_preview and preview %}
+				<span class="summary">
+					<img class="extButton expbtn" title="Expand thread" alt="+" data-cmd="expand" data-id="520752393" src="{{url_for('static', filename='images/post_expand_plus.png')}}">
+					<span class>
+						There are {{thread.posts|length - posts_per_preview}} omitted posts. Click
+						<a href="{{url_for('show_thread', forum_id=thread.board.forum.name, board_id=thread.board.abbrev, thread_id=thread.id)}}">here</a>
+						to view.
+					</span>
+				</span>
+			{% endif %}
+		{% else %}
+			{% include "_post.html" %}
+		{% endif %}
 		{% set i = i + 1 %}
 	{% endfor %}
 </div>

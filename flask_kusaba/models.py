@@ -1,30 +1,41 @@
 from elixir import *
 import os
+import datetime
 
 metadata.bind = "sqlite:///bb.db"
 metadata.bind.echo = True
 
 class Forum(Entity):
-	name    = Field(String(16))
-	desc	= Field(String(1024))
-	boards  = OneToMany('Board')
+	name     = Field(String(16))
+	desc	 = Field(String(1024))
+	sections = OneToMany('Section')
+	boards   = OneToMany('Board')
 	
 	def __repr__(self):
 		return self.name
+		
+class Section(Entity):
+	name	= Field(String(16))
+	forum	= ManyToOne('Forum')
+	boards  = OneToMany('Board')
+	
+	def __repr__(self):
+		return name
 	
 class Board(Entity):
 	name    = Field(String(16))
 	abbrev  = Field(String(4))
 	threads = OneToMany('Thread', order_by='-updated')
-	forum   = ManyToOne('Forum')
+	section = ManyToOne('Section')
+	forum	= ManyToOne('Forum')
 	
 	def __repr__(self):
 		return "%s(%s)" % (self.name, self.abbrev)
 	
 class Thread(Entity):
 	subject = Field(String(16))
-	created = Field(Integer)
-	updated = Field(Integer)
+	created = Field(DateTime, default=datetime.datetime.now)
+	updated = Field(DateTime, default=datetime.datetime.now)
 	board   = ManyToOne('Board')
 	posts   = OneToMany('Post')
 	
@@ -34,7 +45,7 @@ class Thread(Entity):
 class Post(Entity):
 	subject 		= Field(String(16))
 	text    		= Field(String(1024))
-	created 		= Field(Integer)
+	created 		= Field(DateTime, default=datetime.datetime.now)
 	poster_ip 		= Field(String(32))
 	poster_email 	= Field(String(32))
 	poster_name		= Field(String(32))

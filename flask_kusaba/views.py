@@ -7,10 +7,11 @@ import os
 import imghdr
 import time
 import math
+import datetime
 import Image as _Image
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
-THREADS_PER_PAGE = 10
+THREADS_PER_PAGE = 10.0
 POSTS_PER_PREVIEW = 4
 
 setup_all()
@@ -51,9 +52,12 @@ def create_post(forum_id, board_id, thread_id=-1):
 		board  = Board.query.filter_by(abbrev=board_id, forum=forum).one()
 		if (thread_id != -1):
 			thread = Thread.query.filter_by(id=thread_id, board=board).one()
-			thread.updated = math.floor(time.time())
+			thread.updated = datetime.datetime.now()
 		else:
-			thread = Thread(subject=request.form['subject'], created=math.floor(time.time()), updated=math.floor(time.time()), board=board)
+			thread = Thread(
+				subject = request.form['subject'], 
+				board = board
+			)
 
 		name = request.form['name']
 		
@@ -65,10 +69,9 @@ def create_post(forum_id, board_id, thread_id=-1):
 			text = request.form['text'], 
 			poster_email = request.form['email'], 
 			poster_name = name,
-			poster_ip = request.remote_addr,
-			created = math.floor(time.time()), 
+			poster_ip = request.remote_addr, 
 			thread = thread
-			)
+		)
 	
 		file = request.files['file']
 		if file:
