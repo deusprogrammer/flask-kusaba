@@ -16,7 +16,7 @@
 	<div class="post-content">
 		{% if post.image %}
 			<div class="post-image">
-				<a href="{{url_for('get_image', image_id=post.image.id)}}"><img src="{{url_for('get_thumbnail', image_id=post.image.id)}}" /></a>
+				<img class="post-image" style="vertical-align: top" src="{{url_for('get_thumbnail', image_id=post.image.id)}}" image-fullSizeUrl="{{url_for('get_image', image_id=post.image.id)}}" />
 			</div>
 		{% endif %}
 		<div class="post-text">

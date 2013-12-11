@@ -2,10 +2,15 @@
 <html lang="en">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-waitforimages.min.js')}}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/board.js')}}"></script>
     <title>{% block title %}{% endblock %} - My Webpage</title>
 </head>
 <body>
+	<div class="spinner"><img src="{{url_for('static', filename='images/spinner.gif')}}" /></div>
+	<div class="image-expand"><div class="image-expand-inner"></div><div class="fullscreen-button"><img src="{{url_for('static', filename='images/full-screen.png')}}" /></div></div>
 	<div id="header">{% block header %}{% endblock %}</div>
     <div id="content">{% block content %}{% endblock %}</div>
     <div id="footer">
