@@ -10,4 +10,4 @@ forum:4chan
 		board:Paranormal(x)
 	section:Adult
 		board:Sexy Woman(sexy)
-		board:Panties(pantsu)
+		board:Ecchi(e)
