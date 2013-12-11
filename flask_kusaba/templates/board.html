@@ -23,24 +23,26 @@
 {% endblock %}
 {% block footer %}
 <div>
-	{% if page > 1 %}
-		<a href="{{url_for('show_board', forum_id=board.forum.name, board_id=board.abbrev, page=page-1)}}">&lt;</a>
-	{% else %}
-		&lt;
-	{% endif %}
-	[
-		{% for i in range(1, n_pages + 1) %}
-			{% if i == page %}
-				{{i}}
-			{% else %}
-				<a href="{{url_for('show_board', forum_id=board.forum.name, board_id=board.abbrev, page=i)}}">{{i}}</a>
-			{% endif %}
-		{% endfor %}
-	]
-	{% if page < n_pages %}
-		<a href="{{url_for('show_board', forum_id=board.forum.name, board_id=board.abbrev, page=page+1)}}">&gt;</a>
-	{% else %}
-		&gt;
+	{% if board.posts %}
+		{% if page > 1 %}
+			<a href="{{url_for('show_board', forum_id=board.forum.name, board_id=board.abbrev, page=page-1)}}">&lt;</a>
+		{% else %}
+			&lt;
+		{% endif %}
+		[
+			{% for i in range(1, n_pages + 1) %}
+				{% if i == page %}
+					{{i}}
+				{% else %}
+					<a href="{{url_for('show_board', forum_id=board.forum.name, board_id=board.abbrev, page=i)}}">{{i}}</a>
+				{% endif %}
+			{% endfor %}
+		]
+		{% if page < n_pages %}
+			<a href="{{url_for('show_board', forum_id=board.forum.name, board_id=board.abbrev, page=page+1)}}">&gt;</a>
+		{% else %}
+			&gt;
+		{% endif %}
 	{% endif %}
 	<br />
 	pages: {{n_pages}}<br />

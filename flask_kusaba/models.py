@@ -32,9 +32,12 @@ class Thread(Entity):
 		return "thread-%r" % self.id
 	
 class Post(Entity):
-	subject = Field(String(16))
-	text    = Field(String(1024))
-	created = Field(Integer)
+	subject 		= Field(String(16))
+	text    		= Field(String(1024))
+	created 		= Field(Integer)
+	poster_ip 		= Field(String(32))
+	poster_email 	= Field(String(32))
+	poster_name		= Field(String(32))
 	has_one('image', of_kind='Image', inverse='post')
 	thread  = ManyToOne('Thread')
 	

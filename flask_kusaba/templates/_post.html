@@ -4,7 +4,14 @@
 <div class="post">
 {% endif %}
 	<div class="post-header">
-		{{ post.subject }} | {{post.created}}
+		<span class="subject">{{post.subject}}</span><span class="poster" title="IP: {{post.poster_ip}}">
+		{% if post.poster_email %}
+			<a class="email-link" href="mailto:{{post.poster_email}}">{{post.poster_name}}</a>
+		{% else %}
+			{{post.poster_name}}
+		{% endif %}
+		</span>
+		{{post.created}} No. <a class="post-number" href="#">{{post.id}}</a>
 	</div>
 	<div class="post-content">
 		{% if post.image %}

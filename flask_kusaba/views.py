@@ -10,7 +10,7 @@ import math
 import Image as _Image
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
-THREADS_PER_PAGE = 2
+THREADS_PER_PAGE = 10
 POSTS_PER_PREVIEW = 4
 
 setup_all()
@@ -55,7 +55,20 @@ def create_post(forum_id, board_id, thread_id=-1):
 		else:
 			thread = Thread(subject=request.form['subject'], created=math.floor(time.time()), updated=math.floor(time.time()), board=board)
 
-		post = Post(subject=request.form['subject'], text=request.form['text'], created=math.floor(time.time()), thread=thread)
+		name = request.form['name']
+		
+		if not request.form['name']:
+			name = 'Anonymous'
+			
+		post = Post(
+			subject = request.form['subject'], 
+			text = request.form['text'], 
+			poster_email = request.form['email'], 
+			poster_name = name,
+			poster_ip = request.remote_addr,
+			created = math.floor(time.time()), 
+			thread = thread
+			)
 	
 		file = request.files['file']
 		if file:
