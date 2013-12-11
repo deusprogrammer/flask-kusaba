@@ -1,0 +1,13 @@
+forum:ponychan
+	section:General
+		board:Random(b)
+	section:Ponies
+		board:Derpy(derp)
+		board:Fluffy(fluf)
+forum:4chan
+	section:General
+		board:Random(b)
+		board:Paranormal(x)
+	section:Adult
+		board:Sexy Woman(sexy)
+		board:Panties(pantsu)

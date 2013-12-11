@@ -113,6 +113,38 @@ div.title {
 	color: #AF0A0F;
 }
 
+div.boards-box {
+	width: 750px;
+	margin: auto;
+}
+
+div.box-outer {
+	border: 1px solid;
+	margin-bottom: .5em;
+	padding-bottom: .5em;
+}
+
+div.box-bar {
+	background: #fca;
+	color: #800;
+	padding-left: .5em;
+	line-height: 2em;
+	position: relative;
+	zoom: 100%;
+}
+
+.box-content {
+	padding: .5em;
+	padding-top: .25em;
+	padding-bottom: 0;
+	line-height: 130%;
+}
+
+div.section-column {
+	float: left;
+	width: 12em;
+}
+
 div.first-post {
 }
 

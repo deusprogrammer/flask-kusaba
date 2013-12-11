@@ -1,8 +1,34 @@
 {% extends "layouts/base.html" %}
 {% block title %}{{forum.name}}{% endblock %}
 {% block content %}
-	<h1>{{forum.name}}</h1>
-	{% for board in forum.boards %}
-		<div><a href="{{url_for('show_board', forum_id=forum.name, board_id=board.abbrev, page=1)}}">{{ board }}</a></div>
-	{% endfor %}
+	<div class="boards-box">
+		<h1>{{forum.name}}</h1>
+		<div class="box-outer">
+			<div class="box-inner">
+				<div class="box-bar">
+					<h2>What is flask-kusaba?</h2>
+				</div>
+				<div class="box-content">
+					<p>Flask-kusaba is a Kusaba(4chan) clone that runs on a lightweight python framework.</p>
+				</div>
+			</div>
+		</div>
+		<div class="box-outer">
+			<div class="box-inner">
+				<div class="box-bar">
+					<h2>Boards</h2>
+				</div>
+				<div class="box-content" style="min-height:200px;">
+				{% for section in forum.sections %}
+					<div class="section-column">
+						<h3 style="text-decoration: underline; display: inline;">{{section.name}}</h3>
+						{% for board in section.boards %}
+							<div><a href="{{url_for('show_board', forum_id=forum.name, board_id=board.abbrev, page=1)}}">{{ board }}</a></div>
+						{% endfor %}
+					</div>
+				{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

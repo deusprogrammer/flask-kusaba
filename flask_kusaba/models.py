@@ -20,7 +20,7 @@ class Section(Entity):
 	boards  = OneToMany('Board')
 	
 	def __repr__(self):
-		return name
+		return self.name
 	
 class Board(Entity):
 	name    = Field(String(16))
