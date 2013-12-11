@@ -9,12 +9,18 @@ Before running the script you must install the flask and elixir modules.  This i
 
 In order to use this application...first you must run the setup.py script.  To use the script you must pass in a template file with a format similiar to the following:
 
-    forum
-      board(abbrev)
-      board(abbrev)
-      board(abbrev)
-    forum
-      board(abbrev)
-      board(abbrev)
+    forum:forum1
+		section:section1
+			board:board1(abbrev1)
+			board:board2(abbrev2)
+			board:board3(abbrev3)
+		section:section2
+			board:board4(abbrev4)
+			...
+    forum:forum2
+		section:section1
+			board:board1(abbrev1)
+			board:board2(abbrev2)
+			...
       
 After running setup.py, you just run runserver.py
