@@ -5,6 +5,10 @@ import datetime
 metadata.bind = "sqlite:///bb.db"
 metadata.bind.echo = True
 
+class Banned(Entity):
+	poster_ip = Field(String(32))
+	reason    = Field(String(1024))
+
 class Forum(Entity):
 	name     = Field(String(16))
 	desc	 = Field(String(1024))

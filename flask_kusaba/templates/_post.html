@@ -13,6 +13,7 @@
 		{% else %}
 			{{post.id}}
 		{% endif %}
+		<a href="{{url_for('ban_user', poster_ip=post.poster_ip)}}">Ban Poster</a>
 	</div>
 	<div class="post-content">
 		{% if post.image %}

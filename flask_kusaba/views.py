@@ -16,6 +16,29 @@ POSTS_PER_PREVIEW = 4
 
 setup_all()
 
+@app.before_request
+def before_request():
+	print "IN FILTER WITH PATH %s" % request.path
+	banned = Banned.query.filter_by(poster_ip=request.remote_addr)
+	if banned.count() > 0 and not request.path == '/banned' :
+		banned = banned.one()
+		return redirect(url_for('banned', reason=banned.reason))
+	return
+
+@app.route('/banned')	
+def banned():
+	banned = Banned.query.filter_by(poster_ip=request.remote_addr).one()
+	return "You are banned.<br />Reason: \"%s\"" % banned.reason
+	
+@app.route('/user/ban/ip/<poster_ip>')
+def ban_user(poster_ip):
+	Banned(
+		poster_ip = poster_ip,
+		reason = "User posted some stupid shit!"
+	)
+	session.commit()
+	return "User banned on ip %s" % poster_ip
+
 def allowed_file(filename):
     return imghdr.what(image.filename) in ALLOWED_EXTENSIONS
 
