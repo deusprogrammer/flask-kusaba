@@ -14,7 +14,9 @@
 			{{post.id}}
 			<span>[<a href="{{url_for('show_thread', forum_id=thread.board.forum.name, board_id=thread.board.abbrev, thread_id=thread.id)}}">Reply</a>]</span>
 		{% endif %}
-		<a href="{{url_for('ban_user', poster_ip=post.poster_ip)}}">Ban Poster</a>
+		{% if admin %}
+			<a href="{{url_for('ban_user', poster_ip=post.poster_ip)}}">Ban Poster</a>
+		{% endif %}
 	</div>
 	<div class="post-content">
 		{% if post.image %}
