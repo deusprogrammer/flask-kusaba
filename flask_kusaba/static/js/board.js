@@ -82,9 +82,11 @@ function fitImage(imageSelector, containerSelector) {
 
 $(function () {
         centerElement("div.spinner");
+		
+		$("div.spinner").hide()
         
         $("div#content").hide().waitForImages(function (){
-                $("div.spinner").fadeOut();
+                //$("div.spinner").fadeOut();
                 $("div#content").fadeIn();
         });
         
@@ -105,13 +107,13 @@ $(function () {
                 console.log("IMAGE: " + imageUrl);
                 
                 $("div.image-expand").hide();
-                $("div.spinner").fadeIn();                
+                //$("div.spinner").fadeIn();                
                 
                 $("div.image-expand-inner").html("<img class='image-expand' src='" + imageUrl + "' />").waitForImages(function () {
-                        $("div.spinner").fadeOut(function() {
+                        //$("div.spinner").fadeOut(function() {
                                 $("div.image-expand").fadeIn();
                                 fitImage("img.image-expand", "div.image-expand");
-                        });
+                        //});
                 });
         });
         

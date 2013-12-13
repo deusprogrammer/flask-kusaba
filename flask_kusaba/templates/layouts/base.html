@@ -9,9 +9,16 @@
     <title>{% block title %}{% endblock %} - My Webpage</title>
 </head>
 <body>
-	<div class="spinner"><img src="{{url_for('static', filename='images/spinner.gif')}}" /></div>
 	<div class="image-expand"><div class="image-expand-inner"></div><div class="fullscreen-button"><img src="{{url_for('static', filename='images/full-screen.png')}}" /></div></div>
-	<div id="header">{% block header %}{% endblock %}</div>
+	<div id="header">
+		{% block header %}
+			{% if not current_user.is_anonymous() %}
+				<div class="admin-bar">
+					Logged in as {{current_user.get_username()}}
+				</div>
+			{% endif %}
+		{% endblock %}
+	</div>
     <div id="content">{% block content %}{% endblock %}</div>
     <div id="footer">
         {% block footer %}

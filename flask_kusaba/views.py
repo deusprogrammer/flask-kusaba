@@ -1,6 +1,8 @@
 from flask import *
+from flask_login import login_user, logout_user, login_required, current_user
 
 from models import *
+from auth import *
 from flask_kusaba import app
 
 import os
@@ -14,11 +16,11 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 THREADS_PER_PAGE = 10.0
 POSTS_PER_PREVIEW = 4
 
-setup_all()
-
 @app.before_request
 def before_request():
 	print "IN FILTER WITH PATH %s" % request.path
+	print "CURRENT USER %s" % current_user.get_username()
+	print "ANONYMOUS? %r" % current_user.is_anonymous()
 	banned = Banned.query.filter_by(poster_ip=request.remote_addr)
 	if banned.count() > 0 and not request.path == '/banned' :
 		banned = banned.one()
@@ -31,6 +33,7 @@ def banned():
 	return "You are banned.<br />Reason: \"%s\"" % banned.reason
 	
 @app.route('/user/ban/ip/<poster_ip>')
+@login_required
 def ban_user(poster_ip):
 	Banned(
 		poster_ip = poster_ip,
@@ -39,9 +42,31 @@ def ban_user(poster_ip):
 	session.commit()
 	return "User banned on ip %s" % poster_ip
 
-def allowed_file(filename):
-    return imghdr.what(image.filename) in ALLOWED_EXTENSIONS
+@app.route('/user/login/')
+def login():
+	return render_template(
+		'login.html'
+	)
 
+@app.route('/user/auth/', methods=['POST'])
+def authenticate():
+	username = request.form['username']
+	password = request.form['password']
+	
+	user = authenticate_user(username, password)
+	
+	if user and user.is_authenticated():
+		login_user(user)
+	else:
+		return redirect(url_for('login'))
+		
+	return redirect(url_for('show_boards', forum_id='ponychan'))
+	
+@app.route('/user/logout/')
+def logout():
+	logout_user()
+	return redirect(url_for('show_boards', forum_id='ponychan'))
+	
 @app.route('/forum/<forum_id>/')
 def show_boards(forum_id):
 	forum = Forum.query.filter_by(name=forum_id).one()
@@ -69,7 +94,7 @@ def show_board(forum_id, board_id, page=1):
 		start_thread = start_thread, 
 		end_thread = end_thread, 
 		posts_per_preview = POSTS_PER_PREVIEW, 
-		admin = False
+		admin = current_user.is_admin()
 	)
 	
 @app.route('/forum/<forum_id>/board/<board_id>/thread/<thread_id>')
@@ -81,7 +106,7 @@ def show_thread(forum_id, board_id, thread_id):
 		'thread.html', 
 		thread = thread, 
 		posts_per_preview = POSTS_PER_PREVIEW,
-		admin = False
+		admin = current_user.is_admin()
 	)
 	
 @app.route('/forum/<forum_id>/board/<board_id>/post', methods=['POST'])

@@ -5,6 +5,50 @@ import datetime
 metadata.bind = "sqlite:///bb.db"
 metadata.bind.echo = True
 
+class AnonymousUser:
+	def is_authenticated(self):
+		return False
+		
+	def is_active(self):
+		return False
+		
+	def is_anonymous(self):
+		return True
+		
+	def is_admin(self):
+		return False
+	
+	def get_username(self):
+		return "Anonymous"
+	
+	def get_id(self):
+		return u"Anonymous"
+
+class User(Entity):
+	username      = Field(String(32))
+	password      = Field(String(32))
+	admin         = Field(Boolean, default=False)
+	active        = Field(Boolean, default=True)
+	authenticated = Field(Boolean, default=False) 
+	
+	def is_authenticated(self):
+		return self.authenticated
+		
+	def is_active(self):
+		return self.active
+		
+	def is_anonymous(self):
+		return False
+		
+	def is_admin(self):
+		return self.admin
+	
+	def get_username(self):
+		return self.username
+	
+	def get_id(self):
+		return u"%s" % self.username
+
 class Banned(Entity):
 	poster_ip = Field(String(32))
 	reason    = Field(String(1024))

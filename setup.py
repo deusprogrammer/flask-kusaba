@@ -23,6 +23,12 @@ except:
 create_all()
 setup_all()
 
+User(
+	username = 'root', 
+	password = 'password',
+	admin    = True
+)
+
 for line in f.readlines():
 	match = re.match(r"\s*(forum|section|board):([a-zA-Z0-9 ]+).*", line)
 	if match:
@@ -54,13 +60,5 @@ for line in f.readlines():
 					forum = forum
 				)
 			print "\t\tCREATED BOARD %r.%r.%r" % (forum, section, board)
-			
-	#match = re.match(r"\s*([a-zA-Z0-9]+):([a-zA-Z ]+)\s*\(([a-z]+)\)", line)
-	#if match and forum:
-	#	board = Board(name=match.group(1), abbrev=match.group(2), forum=forum)
-	#	print "CREATED BOARD %r.%r" % (forum, board)
-	#else:
-	#	forum = Forum(name=line.replace("\n", ""))
-	#	print "CREATED FORUM %r" % forum
 			
 session.commit()
